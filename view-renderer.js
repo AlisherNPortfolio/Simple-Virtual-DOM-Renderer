@@ -20,27 +20,39 @@ class ViewRenderer
     createElement(el) {
       const element = document.createElement(el.tag);
 
-      if (el.hasOwnProperty('props')) {
-        for (const key in el.props) {
-          element[key] = el.props[key];
-        }
-      }
+      this.addProps(el, element);
 
-      if (el.hasOwnProperty('children')) {
-        el.children.forEach(childEl => {
-          const childElement = this.createElement(childEl);
+      this.addEvents(el, element);
 
-          element.appendChild(childElement);
-        });
-      }
-
-      if (el.hasOwnProperty('events')) {
-        for (const key in el.events) {
-            element[key] = el.events[key];
-          }
-      }
+      this.addChildren(el, element);
 
       return element;
+    }
+
+    addProps(data, element) {
+        if (data.hasOwnProperty('props')) {
+            for (const key in data.props) {
+              element[key] = data.props[key];
+            }
+          }
+    }
+
+    addChildren(data, element) {
+        if (data.hasOwnProperty('children')) {
+            data.children.forEach(childEl => {
+              const childElement = this.createElement(childEl);
+    
+              element.appendChild(childElement);
+            });
+          }
+    }
+
+    addEvents(data, element) {
+        if (data.hasOwnProperty('events')) {
+            for (const key in data.events) {
+                element[key] = data.events[key];
+              }
+          }
     }
 
     renderToRoot(elements) {
