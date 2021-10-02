@@ -41,8 +41,10 @@ const virtualDom = [
           },
           events: {
               onclick: function (e) {
-                  e.preventDefault();
-                  if (!confirm('Saytga o`tmoqchimisiz?')) return;
+                  if (!confirm('Saytga o`tmoqchimisiz?')) {
+                    e.preventDefault();
+                    return;
+                  }
               }
           }
         }
